@@ -1,0 +1,114 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Routine Calendar",
+        "description": "Legt einen neuen Kalender an. Aufgaben werden anschließend in den Optionen verwaltet.",
+        "data": {
+          "name": "Name"
+        },
+        "data_description": {
+          "name": "Z.B. Max oder Haushalt."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Ein Kalender mit diesem Namen existiert bereits."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Routinen verwalten",
+        "menu_options": {
+          "add": "Aufgabe hinzufügen",
+          "edit": "Aufgabe bearbeiten",
+          "remove": "Aufgabe löschen"
+        }
+      },
+      "add": {
+        "title": "Aufgabe hinzufügen",
+        "data": {
+          "name": "Name",
+          "due_date": "Nächste Fälligkeit",
+          "interval_value": "Regelmäßigkeit",
+          "interval_unit": "Einheit",
+          "icon": "Icon (optional)"
+        },
+        "data_description": {
+          "name": "Z.B. „Blumen gießen\".",
+          "due_date": "Wann ist die Aufgabe das erste Mal fällig?",
+          "interval_value": "Wie oft wiederholt sich die Aufgabe? (Zahl)",
+          "interval_unit": "Einheit der Regelmäßigkeit."
+        }
+      },
+      "edit": {
+        "title": "Aufgabe bearbeiten",
+        "data": {
+          "id": "Aufgabe"
+        }
+      },
+      "edit_form": {
+        "title": "{name} bearbeiten",
+        "data": {
+          "name": "Name",
+          "due_date": "Nächste Fälligkeit",
+          "interval_value": "Regelmäßigkeit",
+          "interval_unit": "Einheit",
+          "icon": "Icon (optional)"
+        }
+      },
+      "remove": {
+        "title": "Aufgabe löschen",
+        "data": {
+          "id": "Aufgabe"
+        }
+      }
+    },
+    "abort": {
+      "no_routines": "Es sind noch keine Aufgaben angelegt.",
+      "unknown_routine": "Die Aufgabe existiert nicht mehr."
+    },
+    "error": {
+      "invalid_date": "Ungültiges Datum."
+    }
+  },
+  "entity": {
+    "date": {
+      "last_completed": {
+        "name": "Zuletzt erledigt"
+      }
+    },
+    "sensor": {
+      "next_due": {
+        "name": "Fälligkeit in Tagen"
+      }
+    }
+  },
+  "selector": {
+    "interval_unit": {
+      "options": {
+        "days": "Tage",
+        "weeks": "Wochen",
+        "months": "Monate",
+        "years": "Jahre"
+      }
+    }
+  },
+  "services": {
+    "complete": {
+      "name": "Aufgabe erledigt",
+      "description": "Markiert eine Aufgabe als erledigt und verschiebt die nächste Fälligkeit.",
+      "fields": {
+        "routine_id": {
+          "name": "Routine ID",
+          "description": "Die ID der Aufgabe."
+        },
+        "completed_on": {
+          "name": "Erledigt am",
+          "description": "Datum der Erledigung. Leer = heute."
+        }
+      }
+    }
+  }
+}

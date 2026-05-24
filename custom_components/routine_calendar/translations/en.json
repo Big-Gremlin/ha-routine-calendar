@@ -1,0 +1,114 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Routine Calendar",
+        "description": "Creates a new calendar. Routines are managed via the options dialog afterwards.",
+        "data": {
+          "name": "Name"
+        },
+        "data_description": {
+          "name": "E.g. \"Max\" or \"Household\"."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "A calendar with this name already exists."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Manage routines",
+        "menu_options": {
+          "add": "Add routine",
+          "edit": "Edit routine",
+          "remove": "Remove routine"
+        }
+      },
+      "add": {
+        "title": "Add routine",
+        "data": {
+          "name": "Name",
+          "due_date": "Next due date",
+          "interval_value": "Recurrence",
+          "interval_unit": "Unit",
+          "icon": "Icon (optional)"
+        },
+        "data_description": {
+          "name": "E.g. \"Water the plants\".",
+          "due_date": "When is the routine first due?",
+          "interval_value": "How often does the routine repeat? (number)",
+          "interval_unit": "Unit of the recurrence."
+        }
+      },
+      "edit": {
+        "title": "Edit routine",
+        "data": {
+          "id": "Routine"
+        }
+      },
+      "edit_form": {
+        "title": "Edit {name}",
+        "data": {
+          "name": "Name",
+          "due_date": "Next due date",
+          "interval_value": "Recurrence",
+          "interval_unit": "Unit",
+          "icon": "Icon (optional)"
+        }
+      },
+      "remove": {
+        "title": "Remove routine",
+        "data": {
+          "id": "Routine"
+        }
+      }
+    },
+    "abort": {
+      "no_routines": "No routines configured yet.",
+      "unknown_routine": "Routine no longer exists."
+    },
+    "error": {
+      "invalid_date": "Invalid date."
+    }
+  },
+  "entity": {
+    "date": {
+      "last_completed": {
+        "name": "Last completed"
+      }
+    },
+    "sensor": {
+      "next_due": {
+        "name": "Days until due"
+      }
+    }
+  },
+  "selector": {
+    "interval_unit": {
+      "options": {
+        "days": "Days",
+        "weeks": "Weeks",
+        "months": "Months",
+        "years": "Years"
+      }
+    }
+  },
+  "services": {
+    "complete": {
+      "name": "Mark routine complete",
+      "description": "Marks a routine as completed and reschedules the next due date.",
+      "fields": {
+        "routine_id": {
+          "name": "Routine ID",
+          "description": "ID of the routine."
+        },
+        "completed_on": {
+          "name": "Completed on",
+          "description": "Date the routine was completed. Leave empty for today."
+        }
+      }
+    }
+  }
+}

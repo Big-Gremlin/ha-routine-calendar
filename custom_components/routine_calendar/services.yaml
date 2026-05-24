@@ -1,0 +1,21 @@
+complete:
+  name: Aufgabe erledigt
+  description: >-
+    Markiert eine Aufgabe als erledigt. Die nächste Fälligkeit wird auf
+    (Erledigt-Datum + Regelmäßigkeit) gesetzt.
+  fields:
+    routine_id:
+      name: Routine ID
+      description: ID der Aufgabe (siehe Optionen / Liste der Aufgaben).
+      required: true
+      example: a1b2c3d4
+      selector:
+        text:
+    completed_on:
+      name: Erledigt am
+      description: >-
+        Datum (ISO, z.B. 2026-05-17). Leer lassen für „heute".
+      required: false
+      example: "2026-05-17"
+      selector:
+        date:
