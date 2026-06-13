@@ -10,6 +10,8 @@ import voluptuous as vol
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP
 from homeassistant.core import Event, HomeAssistant, ServiceCall, callback
+from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 from homeassistant.helpers.storage import Store
 from homeassistant.util import dt as dt_util
@@ -157,7 +159,26 @@ class RoutineCalendarCoordinator:
 
     async def async_remove_routine(self, routine_id: str) -> None:
         if self._routines.pop(routine_id, None) is not None:
+            self._cleanup_routine_registries(routine_id)
             await self._async_save_and_notify()
+
+    @callback
+    def _cleanup_routine_registries(self, routine_id: str) -> None:
+        """Remove entity and device registry entries for a deleted routine.
+
+        Disabled entities never receive SIGNAL_ROUTINES_CHANGED and cannot
+        clean themselves up, so the coordinator must do it centrally.
+        """
+        entity_reg = er.async_get(self.hass)
+        device_reg = dr.async_get(self.hass)
+        device = device_reg.async_get_device(identifiers={(DOMAIN, routine_id)})
+        if device is None:
+            return
+        for entry in er.async_entries_for_device(
+            entity_reg, device.id, include_disabled_entities=True
+        ):
+            entity_reg.async_remove(entry.entity_id)
+        device_reg.async_remove_device(device.id)
 
     async def async_complete(
         self, routine_id: str, completed_on: date | None = None

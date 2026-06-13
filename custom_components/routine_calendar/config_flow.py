@@ -35,7 +35,7 @@ class RoutineCalendarConfigFlow(ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
         if user_input is not None:
             name = user_input[CONF_NAME].strip()
-            self.async_set_unique_id(slugify(name))
+            await self.async_set_unique_id(slugify(name))
             self._abort_if_unique_id_configured()
             return self.async_create_entry(title=name, data={})
         return self.async_show_form(

@@ -7,10 +7,16 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.routine_calendar.const import DOMAIN
 
 
+@pytest.fixture(autouse=True)
+def auto_enable_custom_integrations(enable_custom_integrations):
+    """Make Home Assistant load components from custom_components/ in tests."""
+    yield
+
+
 @pytest.fixture
 def entry(hass):
     """Bare config entry — routines live in storage, not options."""
-    e = MockConfigEntry(domain=DOMAIN, data={}, options={}, unique_id=DOMAIN)
+    e = MockConfigEntry(domain=DOMAIN, data={}, options={}, unique_id=DOMAIN, title="Routine Calendar")
     e.add_to_hass(hass)
     return e
 

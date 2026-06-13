@@ -399,6 +399,47 @@ class TestValidation:
         # Should not raise.
         await coordinator.async_remove_routine("ghost-id")
 
+    async def test_remove_routine_cleans_up_disabled_device(
+        self, hass: HomeAssistant, entry
+    ):
+        """Deleting a routine whose device/entities are disabled must still
+        remove them from the registries (they never receive the dispatcher
+        signal because disabled entities are not loaded into hass)."""
+        from homeassistant.helpers import device_registry as dr
+        from homeassistant.helpers import entity_registry as er
+        from homeassistant.helpers.entity_registry import RegistryEntryDisabler
+
+        coordinator = await _setup(hass, entry)
+        rid = await coordinator.async_add_routine(
+            name="doomed",
+            due_date=date(2026, 5, 23),
+            interval_value=1,
+            interval_unit=UNIT_WEEKS,
+        )
+        await hass.async_block_till_done()
+
+        entity_reg = er.async_get(hass)
+        device_reg = dr.async_get(hass)
+        device = device_reg.async_get_device(identifiers={("routine_calendar", rid)})
+        assert device is not None
+
+        # Disable all entities of the device (simulates user disabling the device).
+        for entry_item in er.async_entries_for_device(entity_reg, device.id):
+            entity_reg.async_update_entity(
+                entry_item.entity_id, disabled_by=RegistryEntryDisabler.USER
+            )
+        await hass.async_block_till_done()
+
+        # Delete the routine — coordinator must clean up registry despite no live listeners.
+        await coordinator.async_remove_routine(rid)
+        await hass.async_block_till_done()
+
+        assert device_reg.async_get_device(identifiers={("routine_calendar", rid)}) is None
+        assert (
+            er.async_entries_for_device(entity_reg, device.id, include_disabled_entities=True)
+            == []
+        )
+
     async def test_complete_service_unknown_routine_logs_warning(
         self, hass: HomeAssistant, entry, caplog: pytest.LogCaptureFixture
     ):

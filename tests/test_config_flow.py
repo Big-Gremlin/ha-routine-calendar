@@ -25,14 +25,19 @@ class TestConfigFlow:
         assert result["type"] == FlowResultType.FORM
 
         result = await hass.config_entries.flow.async_configure(
-            result["flow_id"], user_input={}
+            result["flow_id"], user_input={CONF_NAME: "Routine Calendar"}
         )
         assert result["type"] == FlowResultType.CREATE_ENTRY
         assert result["title"] == "Routine Calendar"
 
-    async def test_second_instance_is_rejected(self, hass: HomeAssistant, entry):
+    async def test_second_instance_with_same_name_is_rejected(self, hass: HomeAssistant, entry):
         result = await hass.config_entries.flow.async_init(
             DOMAIN, context={"source": SOURCE_USER}
+        )
+        assert result["type"] == FlowResultType.FORM
+
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"], user_input={CONF_NAME: "Routine Calendar"}
         )
         assert result["type"] == FlowResultType.ABORT
         assert result["reason"] == "already_configured"
