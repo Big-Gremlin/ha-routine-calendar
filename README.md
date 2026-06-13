@@ -22,29 +22,6 @@ For every routine you configure:
   (`0` = today, `1` = tomorrow, `-1` = overdue by 1 day)
 - a service `routine_calendar.complete` to tick the routine off
 
-## How completion works
-
-When a routine is completed the next due date is recomputed as
-`last_completed + interval` — independent of the previous due date.
-So if a weekly chore is due Saturday but ticked off on Sunday, the next
-occurrence is the following Sunday.
-
-The same recomputation happens when the date entity is edited directly in the
-UI, so you can fix a forgotten completion after the fact.
-
-## Entity IDs
-
-For a calendar named **Household** and a routine named **Filter clean**:
-
-| Entity | ID |
-|---|---|
-| Calendar | `calendar.household` |
-| Last completed | `date.filter_clean_last_completed` |
-| Days until due | `sensor.filter_clean_days_until_due` |
-
-Use the sensor in a template or Lovelace card to build labels like "Today",
-"Tomorrow", "In 2 days", or "Overdue by 3 days".
-
 ## Installation
 
 ### HACS (recommended)
@@ -73,6 +50,29 @@ Then open the integration's options to manage routines:
 - **Add routine** — name, first due date, interval, optional icon
 - **Edit routine** — change any field including the icon
 - **Remove routine** — deletes the routine and its entities
+
+## How completion works
+
+When a routine is completed the next due date is recomputed as
+`last_completed + interval` — independent of the previous due date.
+So if a weekly chore is due Saturday but ticked off on Sunday, the next
+occurrence is the following Sunday.
+
+The same recomputation happens when the date entity is edited directly in the
+UI, so you can fix a forgotten completion after the fact.
+
+## Entity IDs
+
+For a calendar named **Household** and a routine named **Filter clean**:
+
+| Entity | ID |
+|---|---|
+| Calendar | `calendar.household` |
+| Last completed | `date.filter_clean_last_completed` |
+| Days until due | `sensor.filter_clean_days_until_due` |
+
+Use the sensor in a template or Lovelace card to build labels like "Today",
+"Tomorrow", "In 2 days", or "Overdue by 3 days".
 
 ## License
 
