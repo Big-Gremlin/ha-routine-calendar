@@ -1,13 +1,13 @@
 {
   "domain": "routine_calendar",
   "name": "Routine Calendar",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "codeowners": [],
   "config_flow": true,
   "dependencies": ["calendar"],
-  "documentation": "https://github.com/your-user/routine_calendar",
+  "documentation": "https://github.com/Big-Gremlin/ha-routine-calendar",
   "integration_type": "service",
   "iot_class": "calculated",
-  "issue_tracker": "https://github.com/your-user/routine_calendar/issues",
+  "issue_tracker": "https://github.com/Big-Gremlin/ha-routine-calendar/issues",
   "requirements": []
 }
