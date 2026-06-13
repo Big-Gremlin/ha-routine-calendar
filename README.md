@@ -49,6 +49,10 @@ Use the sensor in a template or Lovelace card to build labels like "Today",
 
 ### HACS (recommended)
 
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Big-Gremlin&repository=ha-routine-calendar&category=integration)
+
 1. HACS → Integrations → ⋮ → *Custom repositories*
 2. Add the repository URL, category *Integration*
 3. Install *Routine Calendar* and restart Home Assistant
@@ -72,4 +76,10 @@ Then open the integration's options to manage routines:
 
 ## License
 
-MIT
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+This project uses the MIT License, for more details see the [license document](LICENSE).
+
+---
+
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/biggremlin)
